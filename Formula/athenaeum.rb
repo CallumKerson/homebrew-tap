@@ -5,21 +5,21 @@
 class Athenaeum < Formula
   desc ""
   homepage "https://github.com/CallumKerson/Athenaeum"
-  version "1.6.2"
+  version "1.6.3"
   license "MIT"
 
   on_macos do
-    if Hardware::CPU.intel?
-      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.6.2/athenaeum_1.6.2_darwin_amd64.tar.gz"
-      sha256 "6be845b534495e756cde0128cc2cb9a602582a835d71af344a7d8451fa60a4d1"
+    if Hardware::CPU.arm?
+      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.6.3/athenaeum_1.6.3_darwin_arm64.tar.gz"
+      sha256 "4059757f79f2d4b5a2eb4ad930d03d6b3f3975e0bbb7039d8643b13409c6f145"
 
       def install
         bin.install "athenaeum"
       end
     end
-    if Hardware::CPU.arm?
-      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.6.2/athenaeum_1.6.2_darwin_arm64.tar.gz"
-      sha256 "43fc0714d4adf1f737157aca9732c86d4bbe2ac4efdda3279bcb20ab3650d2b0"
+    if Hardware::CPU.intel?
+      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.6.3/athenaeum_1.6.3_darwin_amd64.tar.gz"
+      sha256 "7fd77e07c1a4d072d542b38219c54fee16a6f164f03ccb65b8eb5ae7f9ba10a1"
 
       def install
         bin.install "athenaeum"
@@ -29,16 +29,16 @@ class Athenaeum < Formula
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.6.2/athenaeum_1.6.2_linux_arm64.tar.gz"
-      sha256 "b3a3ac889e96a901ec9a7a309ea1e0120fc1b2c9aefdb77c21513822f992fea8"
+      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.6.3/athenaeum_1.6.3_linux_arm64.tar.gz"
+      sha256 "9d035888c409b69fc0e9ca4957d4a834645531476876df9712a62ab65ec7805a"
 
       def install
         bin.install "athenaeum"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.6.2/athenaeum_1.6.2_linux_amd64.tar.gz"
-      sha256 "b53852894ea0a74a715d09b6d483d91cab382d060d4a961f8113f6f4107cf605"
+      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.6.3/athenaeum_1.6.3_linux_amd64.tar.gz"
+      sha256 "26805bee644e3c44162070a12d53e67794d034f5ccf584a38893fc937bfe6639"
 
       def install
         bin.install "athenaeum"
@@ -48,9 +48,6 @@ class Athenaeum < Formula
 
   def caveats
     <<~EOS
-      ****************************************************************
-      The configuration file that is run by the service is located at #{prefix}/config.yaml.
-      ****************************************************************
       ****************************************************************
       Below are services commands to run to manage the athenaeum service.
       If you wish to run the athenaeum at boot prefix these commands with sudo
@@ -66,7 +63,8 @@ class Athenaeum < Formula
   end
 
   service do
-    run [opt_bin/"athenaeum", "run" ,"--config", opt_prefix/"config.yaml"]
+    run [opt_bin/"athenaeum", "run" ,"--config", etc/"athenaeum.yaml"]
+    environment_variables ATHENAEUM_DB_ROOT var/"athenaeum"
     keep_alive true
     error_log_path var/"log/athenaeum.log"
     log_path var/"log/athenaeum.log"
