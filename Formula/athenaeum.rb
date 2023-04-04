@@ -5,21 +5,21 @@
 class Athenaeum < Formula
   desc ""
   homepage "https://github.com/CallumKerson/Athenaeum"
-  version "1.7.2"
+  version "1.8.0"
   license "MIT"
 
   on_macos do
-    if Hardware::CPU.intel?
-      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.7.2/athenaeum_1.7.2_darwin_amd64.tar.gz"
-      sha256 "2ffc5a2a18b3af6b0805e2197497eec26d511f2c66f1959656b6cc7c79280a1a"
+    if Hardware::CPU.arm?
+      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.8.0/athenaeum_1.8.0_darwin_arm64.tar.gz"
+      sha256 "fbe7949c9f5658ee42dcab1ef4373a0ff0a9ef385112bb2b20d21f5038b8ab9c"
 
       def install
         bin.install "athenaeum"
       end
     end
-    if Hardware::CPU.arm?
-      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.7.2/athenaeum_1.7.2_darwin_arm64.tar.gz"
-      sha256 "b6d9a3ced73e6389056ff28cb38e4ea6e3739c13c62624623a0009de69b94cfd"
+    if Hardware::CPU.intel?
+      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.8.0/athenaeum_1.8.0_darwin_amd64.tar.gz"
+      sha256 "53d3f65dad36f7e23709d095a400c499197cc23bc00f7029ba476b91ce50f8f7"
 
       def install
         bin.install "athenaeum"
@@ -28,17 +28,17 @@ class Athenaeum < Formula
   end
 
   on_linux do
-    if Hardware::CPU.intel?
-      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.7.2/athenaeum_1.7.2_linux_amd64.tar.gz"
-      sha256 "8c547508ecb5db31773c020ca623055e8ef402b997237d45f0c25bb66fd378d2"
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.8.0/athenaeum_1.8.0_linux_arm64.tar.gz"
+      sha256 "05d2d6a45cb1f6065461f8aec377fcf482894213d57dc0f599fa242e5870c4f7"
 
       def install
         bin.install "athenaeum"
       end
     end
-    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.7.2/athenaeum_1.7.2_linux_arm64.tar.gz"
-      sha256 "21a5d312f9725263674a3395947e9f0dff307c9d6c2939ead957bb509a967069"
+    if Hardware::CPU.intel?
+      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.8.0/athenaeum_1.8.0_linux_amd64.tar.gz"
+      sha256 "cfb5bbf0a474f828279276d655351f85206a58047eee1afbf2a0ba6f0e63eddd"
 
       def install
         bin.install "athenaeum"
@@ -63,8 +63,7 @@ class Athenaeum < Formula
   end
 
   service do
-    run [opt_bin/"athenaeum", "run" ,"--config", etc/"athenaeum.yaml"]
-    environment_variables ATHENAEUM_DB_ROOT: var/"athenaeum"
+    run [opt_bin/"athenaeum", "run"]
     keep_alive true
     error_log_path var/"log/athenaeum.log"
     log_path var/"log/athenaeum.log"
