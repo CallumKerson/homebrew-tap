@@ -5,21 +5,21 @@
 class Athenaeum < Formula
   desc ""
   homepage "https://github.com/CallumKerson/Athenaeum"
-  version "1.14.3"
+  version "1.14.4"
   license "MIT"
 
   on_macos do
-    if Hardware::CPU.intel?
-      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.14.3/athenaeum_1.14.3_darwin_amd64.tar.gz"
-      sha256 "18b901ce60574166f4c82f14b38acf92631c4a581d1ac94f7e37f286419866f0"
+    if Hardware::CPU.arm?
+      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.14.4/athenaeum_1.14.4_darwin_arm64.tar.gz"
+      sha256 "52f9e50f339c91b19b04fa08dbd3c5c16913a42a23ac6c18662762504976d1de"
 
       def install
         bin.install "athenaeum"
       end
     end
-    if Hardware::CPU.arm?
-      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.14.3/athenaeum_1.14.3_darwin_arm64.tar.gz"
-      sha256 "7b4f2bfde730ef2522e0958b5459ea06e113966d75836c41e76802cdca95fac0"
+    if Hardware::CPU.intel?
+      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.14.4/athenaeum_1.14.4_darwin_amd64.tar.gz"
+      sha256 "48d0dff6cb79b619e91200dee983599fadff57932e1f22c8267e68b9274037ce"
 
       def install
         bin.install "athenaeum"
@@ -29,16 +29,16 @@ class Athenaeum < Formula
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.14.3/athenaeum_1.14.3_linux_arm64.tar.gz"
-      sha256 "96c84f3816a01c9b3781f5ae30e34ecadbb12634fcf943495edd6f3d13d5f285"
+      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.14.4/athenaeum_1.14.4_linux_arm64.tar.gz"
+      sha256 "781544afc43007b888cbd36aedb263a1552d1a8c3357630a33a60c133b3446af"
 
       def install
         bin.install "athenaeum"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.14.3/athenaeum_1.14.3_linux_amd64.tar.gz"
-      sha256 "42e4c6ad9120440f52c5d13205ae3857ff1647fd7ec6c86963f26eed7bd3b5e7"
+      url "https://github.com/CallumKerson/Athenaeum/releases/download/v1.14.4/athenaeum_1.14.4_linux_amd64.tar.gz"
+      sha256 "11ce4fc3f08591dee9959c7d7e824ffbb2ef2f5caf6a1612db51b8438bc59a20"
 
       def install
         bin.install "athenaeum"
